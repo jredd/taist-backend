@@ -1,7 +1,21 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
-# Create your models here.
+class Company(models.Model):
+
+    name = models.CharField(max_length=50)
+    date_added = models.DateField(auto_now_add=True)
+
+
+class Restaurants(models.Model):
+
+    name = models.CharField(max_length=50)
+    location = models.CharField(max_length=50)
+    company = models.ForeignKey(Company, on_delete=models.PROTECT)
+    date_added = models.DateField(auto_now_add=True)
+
+
 class Winery(models.Model):
 
     name = models.CharField(max_length=50, blank=False, unique=True)
@@ -20,13 +34,25 @@ class Wine(models.Model):
 
     winery = models.ForeignKey(Winery, on_delete=models.PROTECT)
     name = models.CharField(max_length=50, blank=False,)
+    short_name = models
     vintage = models.DateField(blank=False)
     wine_alias = models.ForeignKey(WineAlias, on_delete=models.CASCADE)
+    restaurants = models.ManyToManyField(Restaurants)
+
+
+class Rating(models.Model):
+
+    wine = models.ForeignKey(Wine, on_delete=models.PROTECT)
+    created_by = models.ForeignKey(User, on_delete=models.PROTECT)
+    vintage = models.DateField(blank=False)
+    date_added = models.DateField(auto_now_add=True)
 
 
 class Review(models.Model):
 
     review = models.CharField(max_length=500)
     vintage = models.DateField(blank=True)
+    created_by = models.ForeignKey(User, on_delete=models.PROTECT)
+    date_added = models.DateField(auto_now_add=True)
 
 
