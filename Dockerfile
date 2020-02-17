@@ -6,7 +6,7 @@ WORKDIR /taist_app
 ADD . /taist_app/
 RUN pip install -r app/requirements.txt
 
-CMD ['gunicorn', 'app.wsgi:application', '—-bind=0.0.0.0:8000', '—-workers=3']
+CMD ['gunicorn', '—-bind=0.0.0.0:8000', '—-workers=3', 'app.wsgi:application']
 
 
 #FROM nginx
