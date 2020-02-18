@@ -1,24 +1,26 @@
 version: '3'
 services:
   web:
-    build: docker
+    build:
+      context: .
+      dockerfile: docker/django
     container_name: django
     volumes:
-      - .:/code
-      - static:/code/static
-      - media:/code/media
-    expose:
-      - 8000:8000
-    command: bash -c "python manage.py collectstatic --no-input && python manage.py makemigrations && python manage.py migrate && gunicorn --workers=3 projectname.wsgi -b 0.0.0.0:8080"
+      - .:/taist_app
+      - static:/taist_app/static
+      - media:/taist_app/media
+    command: bash -c "python manage.py collectstatic --no-input &&gunicorn --workers=1 config.wsgi -b 0.0.0.0:8080"
 
   nginx:
     restart: always
-    build: nginx
+    build:
+      context: .
+      dockerfile: docker/nginx
     volumes:
-    - ./nginx/:/etc/nginx/conf.d
-    - ./logs/:/code/logs
-    - static:/code/static
-    - media:/code/media
+      - ./docker/django.conf:/etc/nginx/conf.d/django.conf
+      - ./logs/:/taist_app/logs
+      - static:/taist_app/static
+      - media:/taist_app/media
     ports:
       - "1221:80"
     links:
