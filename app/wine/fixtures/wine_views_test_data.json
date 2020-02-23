@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1,
+    "model": "wine.wine",
+    "fields": {
+      "winery": 1,
+      "name": "wine1",
+      "short_name": "wine1",
+      "wine_alias": 1,
+      "vintage": "2011-04-09",
+      "restaurants": 1,
+      "date_added": "2011-04-09 23:44:02"
+    }
+  },
+  {
+    "id": 2,
+    "model": "wine.wine",
+    "fields": {
+      "winery": 2,
+      "name": "wine2",
+      "short_name": "wine2",
+      "wine_alias": 1,
+      "vintage": "2031-04-09",
+      "restaurants": 1,
+      "date_added": "2011-04-09 23:44:02"
+    }
+  }
+]

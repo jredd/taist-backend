@@ -34,10 +34,11 @@ class Wine(models.Model):
 
     winery = models.ForeignKey(Winery, on_delete=models.PROTECT)
     name = models.CharField(max_length=50, blank=False,)
-    short_name = models
+    short_name = models.CharField(max_length=15, blank=True)
     vintage = models.DateField(blank=False)
     wine_alias = models.ForeignKey(WineAlias, on_delete=models.CASCADE)
-    restaurants = models.ManyToManyField(Restaurants)
+    restaurants = models.ForeignKey(Restaurants, on_delete=models.PROTECT)
+    date_added = models.DateField(auto_now_add=True)
 
 
 class Rating(models.Model):
