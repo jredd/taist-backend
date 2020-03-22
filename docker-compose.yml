@@ -9,7 +9,7 @@ services:
       - .:/taist_app
       - static:/taist_app/static
       - media:/taist_app/media
-    command: bash -c "python manage.py collectstatic --no-input &&gunicorn --workers=1 config.wsgi -b 0.0.0.0:8080"
+    command: bash -c "python manage.py collectstatic --no-input &&gunicorn --workers=1 config.wsgi -b 0.0.0.0:8888"
 
   nginx:
     restart: always
